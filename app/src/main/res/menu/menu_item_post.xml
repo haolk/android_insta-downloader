@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+  <item
+    android:id="@+id/copy_link"
+    android:icon="@drawable/ic_link"
+    android:title="@string/copy_link"
+    app:showAsAction="always" />
+  <item
+    android:id="@+id/view_on_insta"
+    android:icon="@drawable/ic_view_insta"
+    android:title="@string/view_on_insta"
+    app:showAsAction="always" />
+  <item
+    android:id="@+id/repost_for_insta"
+    android:icon="@drawable/ic_repost"
+    android:title="@string/repost_on_insta"
+    app:showAsAction="always" />
+  <item
+    android:id="@+id/share"
+    android:icon="@drawable/ic_share"
+    android:title="@string/share"
+    app:showAsAction="always" />
+  <item
+    android:id="@+id/delete"
+    android:icon="@drawable/ic_delete"
+    android:title="@string/delete"
+    app:showAsAction="always" />
+</menu>

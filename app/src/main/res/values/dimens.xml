@@ -1,0 +1,36 @@
+<resources>
+  <dimen name="fab_margin">16dp</dimen>
+  <!-- Default screen margins, per the Android Design guidelines. -->
+  <dimen name="activity_horizontal_margin">16dp</dimen>
+  <dimen name="activity_vertical_margin">16dp</dimen>
+  <dimen name="toolbar_size">65dp</dimen>
+  <dimen name="edt_text_size">14sp</dimen>
+  <dimen name="edt_height">40dp</dimen>
+  <dimen name="edt_height2">48dp</dimen>
+  <dimen name="title">15sp</dimen>
+  <dimen name="radius_toast">12dp</dimen>
+  <dimen name="home_page_text_size_default">13sp</dimen>
+  <dimen name="text_size_item_list">13sp</dimen>
+  <dimen name="text_size_small">12sp</dimen>
+  <dimen name="text_size_normal">13sp</dimen>
+  <dimen name="text_size_normal2">14sp</dimen>
+  <dimen name="text_size_medium">15sp</dimen>
+  <dimen name="text_size_large">18sp</dimen>
+  <dimen name="text_size_x_large">20sp</dimen>
+  <dimen name="button_height">40dp</dimen>
+  <dimen name="avatar_profile">108dp</dimen>
+  <dimen name="radius_bg">6dp</dimen>
+  <dimen name="button_radius">3dp</dimen>
+  <dimen name="line">0.4dp</dimen>
+  <dimen name="line2">0.8dp</dimen>
+  <dimen name="line_large">6dp</dimen>
+  <dimen name="text_size_default">14sp</dimen>
+  <dimen name="toolbar_title">18sp</dimen>
+  <dimen name="margin_16">16dp</dimen>
+  <dimen name="_80dp">80dp</dimen>
+  <dimen name="_45dp">45dp</dimen>
+  <dimen name="rating_height">32dp</dimen>
+  <dimen name="text_size_error">13sp</dimen>
+  <dimen name="cardCornerRadius">6dp</dimen>
+  <dimen name="cardElevation">3dp</dimen>
+</resources>

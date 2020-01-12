@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+
+    <variable
+      name="hasPosts"
+      type="boolean" />
+
+  </data>
+
+  <FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/post_list"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:isGone="@{!hasPosts}"
+      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+      tools:listitem="@layout/list_item_post" />
+
+    <LinearLayout
+      android:id="@+id/empty_layout"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:gravity="center"
+      android:orientation="vertical"
+      app:isGone="@{hasPosts}">
+
+      <TextView
+        android:id="@+id/empty_garden"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/post_empty" />
+
+    </LinearLayout>
+
+  </FrameLayout>
+</layout>
