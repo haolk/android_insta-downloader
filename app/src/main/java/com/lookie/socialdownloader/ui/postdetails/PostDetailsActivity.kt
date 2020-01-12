@@ -19,6 +19,8 @@ import com.lookie.socialdownloader.utilities.SystemUtils.setStatusBarColor
 
 class PostDetailsActivity : AppCompatActivity() {
 
+  private var mPost: Post? = null
+
   private var mCurrentPost: Post? = null
 
   private val viewModelPost: PostListViewModel by viewModels {
@@ -37,26 +39,26 @@ class PostDetailsActivity : AppCompatActivity() {
     val pagerAdapter = SectionsPagerAdapter(supportFragmentManager)
 
     if (intent != null && intent.extras != null) {
-      val post = intent.extras!!.getParcelable<Post>(EXTRA_POST)
-      mCurrentPost = post
-      println("PostDetailsActivity: $post")
+      mPost = intent.extras!!.getParcelable(EXTRA_POST)
+      mCurrentPost = mPost
+      println("PostDetailsActivity: $mPost")
 
-      val multiMedia = post!!.children.edges!!.isNotEmpty()
+      val multiMedia = mPost!!.children.edges!!.isNotEmpty()
       println("multiMedia: $multiMedia")
 
       if (multiMedia) {
-        for (edge: EdgeModel in post.children.edges!!) {
+        for (edge: EdgeModel in mPost!!.children.edges!!) {
           pagerAdapter.addPost(
             Post(
               edge.note!!.id!!, edge.note!!.shortcode!!,
               edge.note!!.displayUrl!!, edge.note!!.videoUrl!!, edge.note!!.isVideo,
-              edge.note!!.text!!, post.createAt,
+              edge.note!!.text!!, mPost!!.createAt,
               edge.note!!.children!!, edge.note!!.caption!!, edge.note!!.owner!!
             )
           )
         }
       } else {
-        pagerAdapter.addPost(post)
+        pagerAdapter.addPost(mPost!!)
       }
     }
 
@@ -91,28 +93,28 @@ class PostDetailsActivity : AppCompatActivity() {
       finish()
     }
     binding.imgViewInsta.setOnClickListener {
-      SystemUtils.openInstagram(this, mCurrentPost!!.shortcode)
+      SystemUtils.openInstagram(this, mPost!!.shortcode)
     }
     binding.imgRepost.setOnClickListener {
       SystemUtils.repostInsta(this, mCurrentPost)
     }
     binding.imgShare.setOnClickListener {
-      SystemUtils.shareLink(this, mCurrentPost)
+      SystemUtils.shareLink(this, mPost)
     }
     binding.imgDelete.setOnClickListener {
-      viewModelPost.deletePost(mCurrentPost)
+      viewModelPost.deletePost(mPost)
       finish()
     }
     binding.imgCopyLink.setOnClickListener {
       SystemUtils.copyText(
         this,
-        "https://www.instagram.com/p/${mCurrentPost!!.shortcode}/",
+        "https://www.instagram.com/p/${mPost!!.shortcode}/",
         R.string.copied_link_to_clipboard
       )
     }
     binding.imgCopyCaption.setOnClickListener {
-      if (mCurrentPost!!.caption.edges!!.isNotEmpty()) {
-        val caption = mCurrentPost!!.caption.edges!![0].note!!.text
+      if (mPost!!.caption.edges!!.isNotEmpty()) {
+        val caption = mPost!!.caption.edges!![0].note!!.text
         SystemUtils.copyText(this, caption, R.string.copied_caption_to_clipboard)
       } else {
         Toast.makeText(this, R.string.caption_not_found, Toast.LENGTH_SHORT).show()
