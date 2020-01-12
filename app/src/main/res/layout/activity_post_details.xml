@@ -57,6 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
+        android:tooltipText="@string/view_on_insta"
         app:srcCompat="@drawable/ic_view_insta_white" />
 
       <ImageView
@@ -64,6 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
+        android:tooltipText="@string/repost_on_insta"
         app:srcCompat="@drawable/ic_repost_white" />
 
       <ImageView
@@ -71,6 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
+        android:tooltipText="@string/share"
         app:srcCompat="@drawable/ic_share_white" />
 
       <ImageView
@@ -78,6 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
+        android:tooltipText="@string/copy_link"
         app:srcCompat="@drawable/ic_link_white" />
 
       <ImageView
@@ -85,6 +89,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
+        android:tooltipText="@string/copy_caption"
         app:srcCompat="@drawable/ic_caption_white" />
 
       <ImageView
@@ -92,9 +97,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
+        android:tooltipText="@string/delete"
         app:srcCompat="@drawable/ic_delete_white" />
 
     </LinearLayout>
 
   </FrameLayout>
+
 </layout>

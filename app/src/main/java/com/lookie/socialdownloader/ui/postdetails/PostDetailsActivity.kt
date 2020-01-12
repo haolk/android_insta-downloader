@@ -37,6 +37,7 @@ class PostDetailsActivity : AppCompatActivity() {
       Glide.with(this).load(mPost!!.displayUrl).into(binding.photoView)
     }
 
+    // setOnClickListener
     binding.back.setOnClickListener {
       finish()
     }
@@ -73,6 +74,5 @@ class PostDetailsActivity : AppCompatActivity() {
         Toast.makeText(this, R.string.caption_not_found, Toast.LENGTH_SHORT).show()
       }
     }
-
   }
 }
