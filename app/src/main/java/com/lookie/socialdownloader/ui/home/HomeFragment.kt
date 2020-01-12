@@ -316,6 +316,14 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
         R.id.copy_link -> {
           SystemUtils.copyText(activity, "https://www.instagram.com/p/${post!!.shortcode}/")
         }
+        R.id.copy_caption -> {
+          if (post!!.caption.edges!!.isNotEmpty()) {
+            val caption = post.caption.edges!![0].note!!.text
+            SystemUtils.copyText(activity, caption)
+          } else {
+            Toast.makeText(activity, "Caption not found", Toast.LENGTH_SHORT).show()
+          }
+        }
       }
       true
     }

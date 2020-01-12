@@ -48,7 +48,7 @@
           android:layout_height="50dp"
           android:layout_gravity="center"
           app:isGone="@{!viewModel.video}"
-          app:srcCompat="@drawable/ic_play_circle_outline_white_32dp" />
+          app:srcCompat="@drawable/ic_play_circle" />
 
         <ImageView
           android:id="@+id/img_multi"
@@ -57,7 +57,7 @@
           android:layout_gravity="end"
           android:layout_margin="4dp"
           app:isGone="@{!viewModel.isMultiMedia}"
-          app:srcCompat="@drawable/ic_photo_library_black_24dp" />
+          app:srcCompat="@drawable/ic_photo_library" />
 
       </FrameLayout>
 

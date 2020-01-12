@@ -14,8 +14,10 @@
     <string name="share">Share</string>
     <string name="delete">Delete</string>
     <string name="no_internet_connection">No internet connection</string>
-    <string name="copy_link">Copy link</string>
-    <string name="copied_link_to_clipboard">Copied link to clipboard</string>
+    <string name="copy_link">Copy Link</string>
+    <string name="copied_link_to_clipboard">Copied content to clipboard</string>
     <string name="recently_visited">Recently Visited</string>
     <string name="latest_download">Latest Download</string>
+  <string name="copy_tags">Copy Tags</string>
+    <string name="copy_caption">Copy Caption</string>
 </resources>
