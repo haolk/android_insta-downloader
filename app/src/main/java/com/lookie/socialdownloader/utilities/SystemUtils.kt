@@ -46,10 +46,10 @@ object SystemUtils {
       try {
         activity.startActivity(intent)
       } catch (e: ActivityNotFoundException) {
-        Toast.makeText(activity, "Can't open Instagram", Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, R.string.cannot_open_insta, Toast.LENGTH_SHORT).show()
       }
     } else {
-      Toast.makeText(activity, "Instagram have not been installed.", Toast.LENGTH_SHORT).show()
+      Toast.makeText(activity, R.string.insta_not_install, Toast.LENGTH_SHORT).show()
     }
   }
 
@@ -61,10 +61,10 @@ object SystemUtils {
       try {
         activity.startActivity(intent)
       } catch (e: ActivityNotFoundException) {
-        Toast.makeText(activity, "Can't open Instagram", Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, R.string.cannot_open_insta, Toast.LENGTH_SHORT).show()
       }
     } else {
-      Toast.makeText(activity, "Instagram have not been installed.", Toast.LENGTH_SHORT).show()
+      Toast.makeText(activity, R.string.insta_not_install, Toast.LENGTH_SHORT).show()
     }
   }
 
@@ -73,13 +73,8 @@ object SystemUtils {
     if (verifyInstagram(activity!!)) {
 
       val prefix = if (post!!.isVideo) ".mp4" else ".jpg"
-      println("prefix: $prefix")
-
       val multiMedia = post.children.edges!!.isNotEmpty()
-      println("multiMedia: $multiMedia")
-
       val shortcode = if (multiMedia) post.children.edges!![0].note!!.shortcode else post.shortcode
-      println("shortcode: $shortcode")
 
       // Create the URI from the media
       val mediaFile = File(
@@ -89,11 +84,10 @@ object SystemUtils {
         ),
         "instagram_${shortcode}${prefix}"
       )
-      println("mediaFile: " + mediaFile.absolutePath)
 
       // Check media exists on device
       if (!mediaFile.exists()) {
-        Toast.makeText(activity, "File not found", Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, R.string.file_not_found, Toast.LENGTH_SHORT).show()
         return
       }
 
@@ -118,11 +112,11 @@ object SystemUtils {
       try {
         activity.startActivity(intent)
       } catch (e: Exception) {
-        Toast.makeText(activity, "Can't repost media", Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, R.string.cannot_repost, Toast.LENGTH_SHORT).show()
         e.printStackTrace()
       }
     } else {
-      Toast.makeText(activity, "Instagram have not been installed.", Toast.LENGTH_SHORT).show()
+      Toast.makeText(activity, R.string.insta_not_install, Toast.LENGTH_SHORT).show()
     }
   }
 

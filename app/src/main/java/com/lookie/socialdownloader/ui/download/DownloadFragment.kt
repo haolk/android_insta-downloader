@@ -51,7 +51,6 @@ class DownloadFragment : Fragment(), PostAdapter.OnItemClickListener {
 
   private fun subscribeUi(adapter: PostAdapter, binding: FragmentDownloadBinding) {
     viewModel.posts.observe(viewLifecycleOwner, Observer<List<Post>> { result ->
-      println("result" + result.size)
       binding.hasPosts = !result.isNullOrEmpty()
       adapter.submitList(result)
     })
@@ -93,7 +92,7 @@ class DownloadFragment : Fragment(), PostAdapter.OnItemClickListener {
             val caption = post.caption.edges!![0].note!!.text
             SystemUtils.copyText(activity, caption)
           } else {
-            Toast.makeText(activity, "Caption not found", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, R.string.caption_not_found, Toast.LENGTH_SHORT).show()
           }
         }
       }

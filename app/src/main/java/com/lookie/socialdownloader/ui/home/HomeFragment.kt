@@ -109,10 +109,10 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
             downloadMediaData(link)
           }
         } else {
-          Toast.makeText(activity, "This is not an Instagram link", Toast.LENGTH_SHORT).show()
+          Toast.makeText(activity, R.string.this_is_not_an_insta_link, Toast.LENGTH_SHORT).show()
         }
       } else {
-        Toast.makeText(activity, "Instagram link not found", Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, R.string.insta_link_not_found, Toast.LENGTH_SHORT).show()
       }
     }
 
@@ -123,7 +123,7 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
       if (pasteData != null) {
         mBinding!!.edtLink.setText(pasteData.toString())
       } else {
-        Toast.makeText(activity, "Instagram link not found", Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, R.string.insta_link_not_found, Toast.LENGTH_SHORT).show()
       }
     }
 
@@ -131,7 +131,6 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
     mBinding!!.userList.adapter = adapter
 
     viewModelUser.users.observe(viewLifecycleOwner, Observer<List<User>> { users ->
-      println("users: " + users.size)
       mBinding!!.hasUsers = !users.isNullOrEmpty()
       adapter.submitList(users)
     })
@@ -170,7 +169,7 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
             showMedia(mPost)
             insertData(mPost)
           } catch (e: Exception) {
-            Toast.makeText(context, "Download failed", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, R.string.post_download_failed, Toast.LENGTH_SHORT).show()
             mBinding!!.progress.visibility = View.GONE
             mBinding!!.hasLatest = false
             mBinding!!.btnDownload.isEnabled = true
@@ -273,18 +272,19 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
             if (writtenToDisk) {
               Log.e(TAG, "File: ${file.absolutePath}")
               if (mCount <= 0) {
-                Toast.makeText(context, "Download successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, R.string.post_download_successfully, Toast.LENGTH_SHORT)
+                  .show()
                 mBinding!!.hasLatest = true
                 val isMultiMedia = mPost!!.children!!.edges!!.isNotEmpty()
                 mBinding!!.imgMulti.visibility = if (isMultiMedia) View.VISIBLE else View.GONE
                 scanFile(context, file)
               }
             } else {
-              Toast.makeText(context, "Download failed", Toast.LENGTH_SHORT).show()
+              Toast.makeText(context, R.string.post_download_failed, Toast.LENGTH_SHORT).show()
               mBinding!!.hasLatest = false
             }
           } else {
-            Toast.makeText(context, "Download failed", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, R.string.post_download_failed, Toast.LENGTH_SHORT).show()
             mBinding!!.hasLatest = false
           }
         }
@@ -321,7 +321,7 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
             val caption = post.caption.edges!![0].note!!.text
             SystemUtils.copyText(activity, caption)
           } else {
-            Toast.makeText(activity, "Caption not found", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, R.string.caption_not_found, Toast.LENGTH_SHORT).show()
           }
         }
       }
