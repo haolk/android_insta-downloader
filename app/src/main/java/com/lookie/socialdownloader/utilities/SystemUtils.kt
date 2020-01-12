@@ -7,13 +7,24 @@ import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
+import android.view.WindowManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.lookie.socialdownloader.R
 import com.lookie.socialdownloader.data.room.entity.Post
 import java.io.File
 
 object SystemUtils {
+
+  @JvmStatic
+  fun setStatusBarColor(activity: Activity?, statusBarColor: Int) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && activity != null) {
+      val window = activity.window
+      window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+      window.statusBarColor = ContextCompat.getColor(activity, statusBarColor)
+    }
+  }
 
   @JvmStatic
   fun isNetworkAvailable(context: Context?): Boolean {
@@ -142,5 +153,13 @@ object SystemUtils {
     val clip = ClipData.newPlainText("label", text)
     clipboard!!.setPrimaryClip(clip)
     Toast.makeText(activity, R.string.copied_link_to_clipboard, Toast.LENGTH_SHORT).show()
+  }
+
+  fun copyText(activity: Activity?, text: String?, resId: Int?) {
+    val clipboard: ClipboardManager? =
+      activity!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
+    val clip = ClipData.newPlainText("label", text)
+    clipboard!!.setPrimaryClip(clip)
+    Toast.makeText(activity, resId!!, Toast.LENGTH_SHORT).show()
   }
 }

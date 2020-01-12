@@ -5,3 +5,5 @@ package com.lookie.socialdownloader.utilities
  */
 const val DATABASE_NAME = "insta-db"
 const val DATABASE_VERSION = 1
+
+const val EXTRA_POST = "post"

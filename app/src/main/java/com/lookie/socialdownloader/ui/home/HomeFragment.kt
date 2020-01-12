@@ -2,8 +2,10 @@ package com.lookie.socialdownloader.ui.home
 
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
 import android.text.TextUtils
 import android.util.Log
 import android.view.Gravity
@@ -29,6 +31,8 @@ import com.lookie.socialdownloader.data.room.entity.User
 import com.lookie.socialdownloader.databinding.FragmentHomeBinding
 import com.lookie.socialdownloader.ui.download.PostListViewModel
 import com.lookie.socialdownloader.ui.main.MainActivity
+import com.lookie.socialdownloader.ui.postdetails.PostDetailsActivity
+import com.lookie.socialdownloader.utilities.EXTRA_POST
 import com.lookie.socialdownloader.utilities.FileUtils.createImageFile
 import com.lookie.socialdownloader.utilities.FileUtils.scanFile
 import com.lookie.socialdownloader.utilities.FileUtils.writeResponseBodyToDisk
@@ -92,6 +96,12 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
 
     mBinding!!.imgMenu.setOnClickListener {
       showPostMenu(mBinding!!.imgMenu, mLastPost)
+    }
+
+    mBinding!!.cardMedia.setOnClickListener {
+      val intent = Intent(activity, PostDetailsActivity::class.java)
+      intent.putExtra(EXTRA_POST, mLastPost as Parcelable)
+      startActivity(intent)
     }
 
     mBinding!!.btnDownload.setOnClickListener {
@@ -314,12 +324,16 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
           viewModelPost.deletePost(post)
         }
         R.id.copy_link -> {
-          SystemUtils.copyText(activity, "https://www.instagram.com/p/${post!!.shortcode}/")
+          SystemUtils.copyText(
+            activity,
+            "https://www.instagram.com/p/${post!!.shortcode}/",
+            R.string.copied_link_to_clipboard
+          )
         }
         R.id.copy_caption -> {
           if (post!!.caption.edges!!.isNotEmpty()) {
             val caption = post.caption.edges!![0].note!!.text
-            SystemUtils.copyText(activity, caption)
+            SystemUtils.copyText(activity, caption, R.string.copied_caption_to_clipboard)
           } else {
             Toast.makeText(activity, R.string.caption_not_found, Toast.LENGTH_SHORT).show()
           }
