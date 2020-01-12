@@ -13,11 +13,18 @@
     android:background="@android:color/black"
     tools:context=".ui.postdetails.PostDetailsActivity">
 
+    <androidx.viewpager.widget.ViewPager
+      android:id="@+id/container"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
     <com.github.chrisbanes.photoview.PhotoView
       android:id="@+id/photo_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:scaleType="fitCenter" />
+      android:scaleType="fitCenter"
+      android:visibility="gone" />
 
     <FrameLayout
       android:layout_width="match_parent"
