@@ -7,33 +7,48 @@ import android.os.Bundle
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.PermissionChecker
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
+import androidx.databinding.DataBindingUtil
 import com.lookie.socialdownloader.R
 import com.lookie.socialdownloader.base.BaseActivity
+import com.lookie.socialdownloader.databinding.ActivityMainBinding
+import com.lookie.socialdownloader.ui.download.DownloadFragment
+import com.lookie.socialdownloader.ui.home.HomeFragment
+import com.lookie.socialdownloader.utilities.MyViewPagerAdapter
 import com.lookie.socialdownloader.utilities.SystemUtils
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
+  private var mBinding: ActivityMainBinding? = null
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_main)
-
-    val navController = findNavController(R.id.nav_host_fragment)
-    // Passing each menu ID as a set of Ids because each
-    // menu should be considered as top level destinations.
-    val appBarConfiguration = AppBarConfiguration(
-      setOf(R.id.navigation_home, R.id.navigation_download)
-    )
-    setupActionBarWithNavController(navController, appBarConfiguration)
-    bottom_nav.setupWithNavController(navController)
+    mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
       isReadStoragePermissionGranted
       isWriteStoragePermissionGranted
+    }
+
+    // setup ViewPager
+    val adapter = MyViewPagerAdapter(supportFragmentManager)
+    val homeFragment = HomeFragment()
+    val downloadFragment = DownloadFragment()
+    adapter.addFragment(homeFragment)
+    adapter.addFragment(downloadFragment)
+    mBinding!!.viewpager.adapter = adapter
+
+    // event of BottomNavigationView
+    mBinding!!.bottomNavigation.setOnNavigationItemSelectedListener {
+      mBinding!!.bottomNavigation.menu.findItem(it.itemId).isChecked = true
+      when (it.itemId) {
+        R.id.navigation_home -> {
+          mBinding!!.viewpager.currentItem = 0
+        }
+        R.id.navigation_download -> {
+          mBinding!!.viewpager.currentItem = 1
+        }
+      }
+      false
     }
   }
 
