@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
   <item
+    android:id="@+id/copy_link"
+    android:icon="@drawable/ic_content_copy"
+    android:title="@string/copy_link" />
+  <item
+    android:id="@+id/copy_caption"
+    android:icon="@drawable/ic_caption"
+    android:title="@string/copy_caption" />
+  <item
     android:id="@+id/view_on_insta"
     android:icon="@drawable/ic_view_insta"
     android:title="@string/view_on_insta" />
@@ -16,14 +24,6 @@
     android:id="@+id/share_link"
     android:icon="@drawable/ic_share"
     android:title="@string/share_link" />
-  <item
-    android:id="@+id/copy_link"
-    android:icon="@drawable/ic_content_copy"
-    android:title="@string/copy_link" />
-  <item
-    android:id="@+id/copy_caption"
-    android:icon="@drawable/ic_caption"
-    android:title="@string/copy_caption" />
   <item
     android:id="@+id/delete"
     android:icon="@drawable/ic_delete"

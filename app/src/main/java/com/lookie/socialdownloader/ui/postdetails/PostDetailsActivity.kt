@@ -106,7 +106,7 @@ class PostDetailsActivity : AppCompatActivity() {
       SystemUtils.shareLink(this, mPost)
     }
     binding.imgShareMedia.setOnClickListener {
-      SystemUtils.shareLocalMedia(this, mPost)
+      SystemUtils.shareLocalMedia(this, mCurrentPost)
     }
     binding.imgDelete.setOnClickListener {
       viewModelPost.deletePost(mPost)
