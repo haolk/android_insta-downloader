@@ -150,12 +150,13 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
       return
     }
 
-    val shortCode = link.replace("https://www.instagram.com/p/", "").split("/")[0]
+    val shortCode = link
+      .replace("https://www.instagram.com/p/", "")
+      .split("/")[0]
 
     mBinding!!.progress.visibility = View.VISIBLE
     mBinding!!.hasLatest = false
     mBinding!!.hasLatest = false
-
     mBinding!!.btnDownload.isEnabled = false
 
     ApiGenerator.instance!!.createService(ApiMain::class.java)
@@ -168,6 +169,10 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
             val instaModel = mGson.fromJson(response.body()!!.string(), InstaModel::class.java)
             mPost = instaModel.grapql!!.shortMedia
 
+            // insert database
+            insertData(mPost)
+
+            // download all media
             val multiMedia = mPost!!.children!!.edges!!.isNotEmpty()
             if (multiMedia) {
               mCount = mPost!!.children!!.edges!!.size
@@ -176,8 +181,6 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
               mCount = 1
               downloadSingleMedia(mPost)
             }
-
-            insertData(mPost)
 
           } catch (e: Exception) {
             Toast.makeText(context, R.string.post_download_failed, Toast.LENGTH_SHORT).show()
@@ -209,7 +212,6 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
   }
 
   private fun binViewData(post: Post?) {
-    println("binViewData")
 
     Glide.with(activity!!).load(post!!.displayUrl).into(mBinding!!.imgMedia)
 
@@ -217,14 +219,13 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
 
     mBinding!!.textUsername.text = post.owner.username
 
-    if (post.caption.edges != null && post.caption.edges!!.isNotEmpty()) {
-      mBinding!!.textDesc.text = post.caption.edges!![0].note!!.text
+    if (post.hasCaptionText()) {
+      mBinding!!.textDesc.text = post.getCaptionText()
     }
 
     mBinding!!.imgVideo.visibility = if (post.isVideo) View.VISIBLE else View.GONE
 
-    val isMultiMedia = post.children.edges!!.isNotEmpty()
-    mBinding!!.imgMulti.visibility = if (isMultiMedia) View.VISIBLE else View.GONE
+    mBinding!!.imgMulti.visibility = if (post.isMultiMedia()) View.VISIBLE else View.GONE
   }
 
   private fun downloadMultiMedia(media: ShortMediaModel?) {
@@ -272,8 +273,8 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
                 Toast.makeText(context, R.string.post_download_successfully, Toast.LENGTH_SHORT)
                   .show()
                 mBinding!!.hasLatest = true
-                val isMultiMedia = mPost!!.children!!.edges!!.isNotEmpty()
-                mBinding!!.imgMulti.visibility = if (isMultiMedia) View.VISIBLE else View.GONE
+                mBinding!!.imgMulti.visibility =
+                  if (mPost!!.isMultiMedia()) View.VISIBLE else View.GONE
                 scanFile(context, file)
               }
             } else {
@@ -318,8 +319,8 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
           )
         }
         R.id.copy_caption -> {
-          if (post!!.caption.edges!!.isNotEmpty()) {
-            val caption = post.caption.edges!![0].note!!.text
+          if (post!!.hasCaptionText()) {
+            val caption = post.getCaptionText()
             SystemUtils.copyText(activity, caption, R.string.copied_caption_to_clipboard)
           } else {
             Toast.makeText(activity, R.string.caption_not_found, Toast.LENGTH_SHORT).show()

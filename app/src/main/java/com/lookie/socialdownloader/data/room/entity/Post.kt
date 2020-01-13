@@ -3,6 +3,7 @@ package com.lookie.socialdownloader.data.room.entity
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.lookie.socialdownloader.data.remote.model.ChildrenModel
@@ -54,6 +55,21 @@ data class Post(
 
   override fun describeContents(): Int {
     return 0
+  }
+
+  @Ignore
+  fun isMultiMedia(): Boolean {
+    return children.edges!!.isNotEmpty()
+  }
+
+  @Ignore
+  fun hasCaptionText(): Boolean {
+    return caption.edges != null && caption.edges!!.isNotEmpty()
+  }
+
+  @Ignore
+  fun getCaptionText(): String? {
+    return caption.edges!![0].note!!.text
   }
 
   companion object CREATOR : Parcelable.Creator<Post> {

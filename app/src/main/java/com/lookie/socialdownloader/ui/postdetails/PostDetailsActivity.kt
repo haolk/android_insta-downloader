@@ -113,8 +113,8 @@ class PostDetailsActivity : AppCompatActivity() {
       )
     }
     binding.imgCopyCaption.setOnClickListener {
-      if (mPost!!.caption.edges!!.isNotEmpty()) {
-        val caption = mPost!!.caption.edges!![0].note!!.text
+      if (mPost!!.hasCaptionText()) {
+        val caption = mPost!!.getCaptionText()
         SystemUtils.copyText(this, caption, R.string.copied_caption_to_clipboard)
       } else {
         Toast.makeText(this, R.string.caption_not_found, Toast.LENGTH_SHORT).show()

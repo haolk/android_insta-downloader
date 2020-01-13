@@ -73,4 +73,9 @@ class ShortMediaModel() : Parcelable {
       return arrayOfNulls(size)
     }
   }
+
+  fun isMultiMedia(): Boolean {
+    return children!!.edges!!.isNotEmpty()
+  }
+
 }

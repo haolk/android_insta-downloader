@@ -95,8 +95,8 @@ class DownloadFragment : Fragment(), PostAdapter.OnItemClickListener {
           SystemUtils.copyText(activity, "https://www.instagram.com/p/${post!!.shortcode}/", R.string.copied_link_to_clipboard)
         }
         R.id.copy_caption -> {
-          if (post!!.caption.edges!!.isNotEmpty()) {
-            val caption = post.caption.edges!![0].note!!.text
+          if (post!!.hasCaptionText()) {
+            val caption = post.getCaptionText()
             SystemUtils.copyText(activity, caption, R.string.copied_caption_to_clipboard)
           } else {
             Toast.makeText(activity, R.string.caption_not_found, Toast.LENGTH_SHORT).show()

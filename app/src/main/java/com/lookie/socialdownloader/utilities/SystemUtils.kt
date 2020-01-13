@@ -49,9 +49,9 @@ object SystemUtils {
     return Build.VERSION_CODES.P
   }
 
-  fun openInstagram(activity: Activity?, shortcode: String) {
+  fun openInstagram(activity: Activity?, shortCode: String) {
     if (verifyInstagram(activity!!)) {
-      val uri: Uri = Uri.parse("https://www.instagram.com/p/${shortcode}/")
+      val uri: Uri = Uri.parse("https://www.instagram.com/p/${shortCode}/")
       val intent = Intent(Intent.ACTION_VIEW, uri)
       intent.setPackage("com.instagram.android")
       try {
@@ -85,7 +85,7 @@ object SystemUtils {
 
       val prefix = if (post!!.isVideo) ".mp4" else ".jpg"
       val multiMedia = post.children.edges!!.isNotEmpty()
-      val shortcode = if (multiMedia) post.children.edges!![0].note!!.shortcode else post.shortcode
+      val shortCode = if (multiMedia) post.children.edges!![0].note!!.shortcode else post.shortcode
 
       // Create the URI from the media
       val mediaFile = File(
@@ -93,7 +93,7 @@ object SystemUtils {
           Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
           activity.getString(R.string.app_name)
         ),
-        "instagram_${shortcode}${prefix}"
+        "instagram_${shortCode}${prefix}"
       )
 
       // Check media exists on device
@@ -145,14 +145,6 @@ object SystemUtils {
     } catch (e: PackageManager.NameNotFoundException) {
       false
     }
-  }
-
-  fun copyText(activity: Activity?, text: String?) {
-    val clipboard: ClipboardManager? =
-      activity!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
-    val clip = ClipData.newPlainText("label", text)
-    clipboard!!.setPrimaryClip(clip)
-    Toast.makeText(activity, R.string.copied_link_to_clipboard, Toast.LENGTH_SHORT).show()
   }
 
   fun copyText(activity: Activity?, text: String?, resId: Int?) {
