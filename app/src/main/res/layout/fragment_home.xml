@@ -67,20 +67,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_link" />
 
-      <ProgressBar
-        android:id="@+id/progress"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="8dp"
-        android:indeterminate="true"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_download" />
-
       <TextView
         android:id="@+id/label_latest_download"
         android:layout_width="0dp"
@@ -93,7 +79,7 @@
         app:isGone="@{!hasLatest}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progress" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_download" />
 
       <androidx.cardview.widget.CardView
         android:id="@+id/card_media"
@@ -131,16 +117,22 @@
               android:layout_height="16dp"
               android:layout_gravity="end"
               android:layout_margin="4dp"
-              android:visibility="gone"
               app:srcCompat="@drawable/ic_photo_library" />
 
             <ImageView
               android:id="@+id/img_video"
-              android:layout_width="50dp"
-              android:layout_height="50dp"
+              android:layout_width="32dp"
+              android:layout_height="32dp"
               android:layout_gravity="center"
-              android:visibility="gone"
               app:srcCompat="@drawable/ic_play_circle" />
+
+            <ProgressBar
+              android:id="@+id/progress"
+              android:layout_width="32dp"
+              android:layout_height="32dp"
+              android:layout_gravity="center"
+              android:indeterminate="true"
+              android:visibility="gone" />
 
           </FrameLayout>
 

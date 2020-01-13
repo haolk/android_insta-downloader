@@ -30,8 +30,9 @@
   <string name="cannot_open_insta">Can\'t open Instagram.</string>
   <string name="insta_not_install">Instagram have not been installed.</string>
   <string name="cannot_repost">Can\'t repost media.</string>
-
   <string name="title_activity_fullscreen">FullscreenActivity</string>
   <string name="dummy_button">Dummy Button</string>
   <string name="dummy_content">DUMMY\nCONTENT</string>
+  <string name="back">Back</string>
+  <string name="loading">Loading…</string>
 </resources>

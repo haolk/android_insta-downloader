@@ -44,8 +44,8 @@
 
         <ImageView
           android:id="@+id/img_video"
-          android:layout_width="50dp"
-          android:layout_height="50dp"
+          android:layout_width="32dp"
+          android:layout_height="32dp"
           android:layout_gravity="center"
           app:isGone="@{!viewModel.video}"
           app:srcCompat="@drawable/ic_play_circle" />

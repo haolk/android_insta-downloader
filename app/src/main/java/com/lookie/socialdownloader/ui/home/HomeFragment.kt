@@ -80,16 +80,7 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
     viewModelPost.lastPost.observe(viewLifecycleOwner, Observer<Post> { result ->
       if (result != null) {
         mLastPost = result
-        val media = ShortMediaModel()
-        media.id = result.id
-        media.shortcode = result.shortcode
-        media.displayUrl = result.displayUrl
-        media.videoUrl = result.videoUrl
-        media.children = result.children
-        media.caption = result.caption
-        media.owner = result.owner
-        media.text = result.text
-        binViewData(media)
+        binViewData(result)
         mBinding!!.hasLatest = true
       }
     })
@@ -176,8 +167,18 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
           try {
             val instaModel = mGson.fromJson(response.body()!!.string(), InstaModel::class.java)
             mPost = instaModel.grapql!!.shortMedia
-            showMedia(mPost)
+
+            val multiMedia = mPost!!.children!!.edges!!.isNotEmpty()
+            if (multiMedia) {
+              mCount = mPost!!.children!!.edges!!.size
+              downloadMultiMedia(mPost)
+            } else {
+              mCount = 1
+              downloadSingleMedia(mPost)
+            }
+
             insertData(mPost)
+
           } catch (e: Exception) {
             Toast.makeText(context, R.string.post_download_failed, Toast.LENGTH_SHORT).show()
             mBinding!!.progress.visibility = View.GONE
@@ -207,36 +208,22 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
     thread.start()
   }
 
-  private fun showMedia(media: ShortMediaModel?) {
-    println("showMedia")
-
-    binViewData(media)
-
-    val multiMedia = media!!.children!!.edges!!.isNotEmpty()
-    if (multiMedia) {
-      mCount = media.children!!.edges!!.size
-      downloadMultiMedia(media)
-    } else {
-      mCount = 1
-      downloadSingleMedia(media)
-    }
-  }
-
-  private fun binViewData(media: ShortMediaModel?) {
+  private fun binViewData(post: Post?) {
     println("binViewData")
 
-    Glide.with(activity!!).load(media!!.displayUrl).into(mBinding!!.imgMedia)
-    Glide.with(activity!!).load(media.owner!!.profilePicUrl).into(mBinding!!.imgAvatar)
+    Glide.with(activity!!).load(post!!.displayUrl).into(mBinding!!.imgMedia)
 
-    mBinding!!.textUsername.text = media.owner!!.username
+    Glide.with(activity!!).load(post.owner.profilePicUrl).into(mBinding!!.imgAvatar)
 
-    if (media.caption!!.edges != null && media.caption!!.edges!!.isNotEmpty()) {
-      mBinding!!.textDesc.text = media.caption!!.edges!![0].note!!.text
+    mBinding!!.textUsername.text = post.owner.username
+
+    if (post.caption.edges != null && post.caption.edges!!.isNotEmpty()) {
+      mBinding!!.textDesc.text = post.caption.edges!![0].note!!.text
     }
 
-    mBinding!!.imgVideo.visibility = if (media.isVideo) View.VISIBLE else View.GONE
+    mBinding!!.imgVideo.visibility = if (post.isVideo) View.VISIBLE else View.GONE
 
-    val isMultiMedia = media.children!!.edges!!.isNotEmpty()
+    val isMultiMedia = post.children.edges!!.isNotEmpty()
     mBinding!!.imgMulti.visibility = if (isMultiMedia) View.VISIBLE else View.GONE
   }
 

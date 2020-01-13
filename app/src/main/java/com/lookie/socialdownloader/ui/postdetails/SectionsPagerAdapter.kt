@@ -18,7 +18,7 @@ class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
   }
 
   override fun getItem(position: Int): Fragment {
-    return PlaceholderFragment.newInstance(mList[position])
+    return MediaFragment.newInstance(mList[position])
   }
 
   override fun getCount(): Int {
