@@ -9,12 +9,16 @@
     android:icon="@drawable/ic_repost"
     android:title="@string/repost_on_insta" />
   <item
-    android:id="@+id/share"
+    android:id="@+id/share_media"
+    android:icon="@drawable/ic_screen_share"
+    android:title="@string/share_media" />
+  <item
+    android:id="@+id/share_link"
     android:icon="@drawable/ic_share"
-    android:title="@string/share" />
+    android:title="@string/share_link" />
   <item
     android:id="@+id/copy_link"
-    android:icon="@drawable/ic_link"
+    android:icon="@drawable/ic_content_copy"
     android:title="@string/copy_link" />
   <item
     android:id="@+id/copy_caption"

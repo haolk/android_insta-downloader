@@ -55,7 +55,7 @@ class PostDetailsActivity : AppCompatActivity() {
           pagerAdapter.addPost(
             Post(
               edge.note!!.id!!, edge.note!!.shortcode!!,
-              edge.note!!.displayUrl!!, edge.note!!.videoUrl!!, edge.note!!.isVideo!!,
+              edge.note!!.displayUrl!!, edge.note!!.videoUrl!!, edge.note!!.isVideo,
               edge.note!!.text!!, mPost!!.createAt,
               edge.note!!.children!!, edge.note!!.caption!!, edge.note!!.owner!!
             )
@@ -104,6 +104,9 @@ class PostDetailsActivity : AppCompatActivity() {
     }
     binding.imgShare.setOnClickListener {
       SystemUtils.shareLink(this, mPost)
+    }
+    binding.imgShareMedia.setOnClickListener {
+      SystemUtils.shareLocalMedia(this, mPost)
     }
     binding.imgDelete.setOnClickListener {
       viewModelPost.deletePost(mPost)

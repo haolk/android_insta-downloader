@@ -89,7 +89,8 @@ object SystemUtils {
     }
 
     val prefix = if (post!!.isVideo) ".mp4" else ".jpg"
-    val shortCode = if (post.isMultiMedia()) post.children.edges!![0].note!!.shortcode else post.shortcode
+    val shortCode =
+      if (post.isMultiMedia()) post.children.edges!![0].note!!.shortcode else post.shortcode
     return File(
       File(
         Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
@@ -103,18 +104,8 @@ object SystemUtils {
 
     if (verifyInstagram(activity!!)) {
 
-      val prefix = if (post!!.isVideo) ".mp4" else ".jpg"
-      val multiMedia = post.children.edges!!.isNotEmpty()
-      val shortCode = if (multiMedia) post.children.edges!![0].note!!.shortcode else post.shortcode
-
       // Create the URI from the media
-      val mediaFile = File(
-        File(
-          Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-          "Insta Downloader"
-        ),
-        "instagram_${shortCode}${prefix}"
-      )
+      val mediaFile = getFile(post)
 
       // Check media exists on device
       if (!mediaFile.exists()) {
@@ -136,7 +127,7 @@ object SystemUtils {
       intent.putExtra(Intent.EXTRA_STREAM, uri)
 
       // Set the MIME type
-      intent.type = if (post.isVideo) "video/*" else "image/*"
+      intent.type = if (post!!.isVideo) "video/*" else "image/*"
       intent.setPackage("com.instagram.android")
 
       // Broadcast the Intent.
@@ -173,5 +164,23 @@ object SystemUtils {
     val clip = ClipData.newPlainText("label", text)
     clipboard!!.setPrimaryClip(clip)
     Toast.makeText(activity, resId!!, Toast.LENGTH_SHORT).show()
+  }
+
+  fun shareLocalMedia(activity: Activity?, post: Post?) {
+    val file = getFile(post)
+    val uri = FileProvider.getUriForFile(
+      activity!!, "com.lookie.socialdownloader.provider", file
+    )
+    val intent = Intent()
+    intent.action = Intent.ACTION_SEND
+    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    intent.putExtra(Intent.EXTRA_STREAM, uri)
+    intent.type = if (post!!.isVideo) "video/*" else "image/*"
+    try {
+      activity.startActivity(Intent.createChooser(intent, "Share via..."))
+    } catch (e: Exception) {
+      Toast.makeText(activity, R.string.cannot_repost, Toast.LENGTH_SHORT).show()
+      e.printStackTrace()
+    }
   }
 }

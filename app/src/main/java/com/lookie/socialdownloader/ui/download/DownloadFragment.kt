@@ -87,7 +87,10 @@ class DownloadFragment : Fragment(), PostAdapter.OnItemClickListener {
         R.id.repost_for_insta -> {
           SystemUtils.repostInsta(activity, post)
         }
-        R.id.share -> {
+        R.id.share_media -> {
+          SystemUtils.shareLocalMedia(activity, post)
+        }
+        R.id.share_link -> {
           SystemUtils.shareLink(activity, post)
         }
         R.id.delete -> {
