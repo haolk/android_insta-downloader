@@ -61,11 +61,6 @@ class DownloadFragment : Fragment(), PostAdapter.OnItemClickListener {
       println("getPostLiveData size: ${posts.size}")
       adapter.submitList(posts)
     })
-//    viewModel.getPostLiveData().observe(this, Observer { posts ->
-//      // binding.hasPosts = !posts.isNullOrEmpty()
-//      println("getPostLiveData size: ${posts.size}")
-//      adapter.submitList(posts)
-//    })
   }
 
   override fun onItemClick(view: View?, post: Post?, position: Int) {
