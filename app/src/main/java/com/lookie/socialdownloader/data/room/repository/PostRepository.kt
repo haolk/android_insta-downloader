@@ -12,6 +12,8 @@ class PostRepository private constructor(private val postDao: PostDao) {
 
   fun getLastPost() = postDao.getLastPost()
 
+  fun getAllPosts() = postDao.getAllPosts()
+
   fun isPosted(id: String): Boolean {
     return postDao.isPosted(id)
   }

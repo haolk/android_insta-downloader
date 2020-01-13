@@ -11,6 +11,7 @@ import java.io.*
 object FileUtils {
 
   fun scanFile(context: Context?, file: File) {
+    println("scanFile")
     context!!.sendBroadcast(
       Intent(
         Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
@@ -23,7 +24,7 @@ object FileUtils {
   fun createImageFile(ctx: Context, imageFileName: String): File {
     val storageDir = File(
       Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-      ctx.getString(R.string.app_name)
+      "Insta Downloader"
     )
     if (!storageDir.exists()) {
       storageDir.mkdirs()

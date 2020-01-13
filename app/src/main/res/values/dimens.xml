@@ -15,6 +15,7 @@
   <dimen name="text_size_normal">13sp</dimen>
   <dimen name="text_size_normal2">14sp</dimen>
   <dimen name="text_size_medium">15sp</dimen>
+  <dimen name="text_size_medium2">16sp</dimen>
   <dimen name="text_size_large">18sp</dimen>
   <dimen name="text_size_x_large">20sp</dimen>
   <dimen name="button_height">40dp</dimen>

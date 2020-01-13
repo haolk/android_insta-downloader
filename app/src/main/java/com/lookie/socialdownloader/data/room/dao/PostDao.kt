@@ -1,6 +1,7 @@
 package com.lookie.socialdownloader.data.room.dao
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -15,6 +16,9 @@ interface PostDao {
 
   @Query("SELECT * FROM posts ORDER BY createAt DESC")
   fun getPosts(): LiveData<List<Post>>
+
+  @Query("SELECT * FROM posts ORDER BY createAt DESC")
+  fun getAllPosts(): DataSource.Factory<Int, Post>
 
   @Query("SELECT * FROM posts WHERE id = :id")
   fun getPostDetails(id: String): Post

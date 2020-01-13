@@ -79,6 +79,26 @@ object SystemUtils {
     }
   }
 
+  fun getFile(post: Post?): File {
+    val storageDir = File(
+      Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+      "Insta Downloader"
+    )
+    if (!storageDir.exists()) {
+      storageDir.mkdirs()
+    }
+
+    val prefix = if (post!!.isVideo) ".mp4" else ".jpg"
+    val shortCode = if (post.isMultiMedia()) post.children.edges!![0].note!!.shortcode else post.shortcode
+    return File(
+      File(
+        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+        "Insta Downloader"
+      ),
+      "instagram_${shortCode}${prefix}"
+    )
+  }
+
   fun repostInsta(activity: Activity?, post: Post?) {
 
     if (verifyInstagram(activity!!)) {
@@ -91,7 +111,7 @@ object SystemUtils {
       val mediaFile = File(
         File(
           Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-          activity.getString(R.string.app_name)
+          "Insta Downloader"
         ),
         "instagram_${shortCode}${prefix}"
       )

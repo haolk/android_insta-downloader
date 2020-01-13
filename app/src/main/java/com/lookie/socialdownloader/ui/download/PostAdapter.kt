@@ -24,7 +24,10 @@ class PostAdapter internal constructor(private val listener: OnItemClickListener
   }
 
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-    holder.bind(getItem(position), position)
+    val post = getItem(position)
+    if (post != null) {
+      holder.bind(post, position)
+    }
   }
 
   class ViewHolder(
@@ -32,11 +35,9 @@ class PostAdapter internal constructor(private val listener: OnItemClickListener
     private val binding: ListItemPostBinding
   ) :
     RecyclerView.ViewHolder(binding.root) {
-    init {
-
-    }
 
     fun bind(post: Post, position: Int) {
+
       with(binding) {
         viewModel = PostViewModel(post)
         executePendingBindings()
@@ -49,6 +50,11 @@ class PostAdapter internal constructor(private val listener: OnItemClickListener
       binding.imgMenu.setOnClickListener { view ->
         listener.onItemClick(view, post, position)
       }
+    }
+
+    fun clear() {
+      binding.textUsername.text = "textUsername"
+      binding.textDesc.text = "textDesc"
     }
   }
 
@@ -64,6 +70,6 @@ private class PostDiffCallback : DiffUtil.ItemCallback<Post>() {
   }
 
   override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
-    return oldItem.shortcode == newItem.shortcode
+    return oldItem == newItem
   }
 }

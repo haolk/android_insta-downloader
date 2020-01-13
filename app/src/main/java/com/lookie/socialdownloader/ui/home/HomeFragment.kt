@@ -173,8 +173,7 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
             insertData(mPost)
 
             // download all media
-            val multiMedia = mPost!!.children!!.edges!!.isNotEmpty()
-            if (multiMedia) {
+            if (mPost!!.isMultiMedia()) {
               mCount = mPost!!.children!!.edges!!.size
               downloadMultiMedia(mPost)
             } else {
@@ -246,18 +245,19 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
   }
 
   private fun downloadFile(mediaUrl: String, file: File) {
-    println("downloadFile $mediaUrl")
 
     mCount--
 
-//    if (file.exists()) {
-//      Toast.makeText(context, "${file.absolutePath} exists", Toast.LENGTH_SHORT).show()
-//      if (mCount <= 0) {
-//        mBinding!!.progress.visibility = View.GONE
-//        mBinding!!.hasLatest = false
-//      }
-//      return
-//    }
+    if (file.exists()) {
+      if (mCount <= 0) {
+        mBinding!!.progress.visibility = View.GONE
+        mBinding!!.hasLatest = false
+      }
+      println("file ${file.absolutePath} exists")
+      return
+    } else {
+      println("downloadFile $mediaUrl")
+    }
 
     ApiGenerator.instance!!.createService(ApiMain::class.java).downloadFile(mediaUrl)!!
       .enqueue(object : Callback<ResponseBody?> {

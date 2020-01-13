@@ -31,13 +31,10 @@ class UserAdapter internal constructor(private val listener: OnItemClickListener
   class ViewHolder(
     private val listener: OnItemClickListener,
     private val binding: ListItemUserBinding
-  ) :
-    RecyclerView.ViewHolder(binding.root) {
-    init {
-
-    }
+  ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(user: User, position: Int) {
+
       with(binding) {
         viewModel = UserViewModel(user)
         executePendingBindings()
@@ -66,6 +63,6 @@ private class PostDiffCallback : DiffUtil.ItemCallback<User>() {
   }
 
   override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
-    return oldItem.id == newItem.id
+    return oldItem == newItem
   }
 }

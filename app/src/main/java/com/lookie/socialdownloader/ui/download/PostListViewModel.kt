@@ -2,6 +2,9 @@ package com.lookie.socialdownloader.ui.download
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.paging.DataSource
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.lookie.socialdownloader.data.remote.model.ShortMediaModel
 import com.lookie.socialdownloader.data.room.entity.Post
 import com.lookie.socialdownloader.data.room.repository.PostRepository
@@ -12,11 +15,25 @@ import kotlinx.coroutines.launch
 
 class PostListViewModel(private val postRepository: PostRepository) : ViewModel() {
 
+  var postsLiveData: LiveData<PagedList<Post>>
+
+  private val pageSize = 10
+
+  init {
+    val factory: DataSource.Factory<Int, Post> = postRepository.getAllPosts()
+    val pagedListBuilder: LivePagedListBuilder<Int, Post> =
+      LivePagedListBuilder<Int, Post>(factory, pageSize)
+    postsLiveData = pagedListBuilder.build()
+  }
+
+  fun getPostLiveData() = postsLiveData
+
+  val posts: LiveData<List<Post>> = postRepository.getPosts()
+
   //CoroutineContext:
   private val completableJob = Job()
   private val coroutineScope = CoroutineScope(Dispatchers.IO + completableJob)
 
-  val posts: LiveData<List<Post>> = postRepository.getPosts()
 
   val lastPost: LiveData<Post> = postRepository.getLastPost()
 

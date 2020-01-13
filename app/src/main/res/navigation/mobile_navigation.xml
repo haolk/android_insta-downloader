@@ -8,13 +8,13 @@
   <fragment
     android:id="@+id/navigation_home"
     android:name="com.lookie.socialdownloader.ui.home.HomeFragment"
-    android:label="@string/title_home"
+    android:label="@string/app_name"
     tools:layout="@layout/fragment_home" />
 
   <fragment
     android:id="@+id/navigation_download"
     android:name="com.lookie.socialdownloader.ui.download.DownloadFragment"
-    android:label="@string/title_download"
+    android:label="@string/app_name"
     tools:layout="@layout/fragment_download" />
 
 </navigation>

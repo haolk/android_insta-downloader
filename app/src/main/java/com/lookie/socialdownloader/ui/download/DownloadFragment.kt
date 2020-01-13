@@ -55,10 +55,17 @@ class DownloadFragment : Fragment(), PostAdapter.OnItemClickListener {
   }
 
   private fun subscribeUi(adapter: PostAdapter, binding: FragmentDownloadBinding) {
-    viewModel.posts.observe(viewLifecycleOwner, Observer<List<Post>> { result ->
-      binding.hasPosts = !result.isNullOrEmpty()
-      adapter.submitList(result)
+
+    viewModel.posts.observe(viewLifecycleOwner, Observer<List<Post>> { posts ->
+      binding.hasPosts = !posts.isNullOrEmpty()
+      println("getPostLiveData size: ${posts.size}")
+      adapter.submitList(posts)
     })
+//    viewModel.getPostLiveData().observe(this, Observer { posts ->
+//      // binding.hasPosts = !posts.isNullOrEmpty()
+//      println("getPostLiveData size: ${posts.size}")
+//      adapter.submitList(posts)
+//    })
   }
 
   override fun onItemClick(view: View?, post: Post?, position: Int) {
@@ -92,7 +99,11 @@ class DownloadFragment : Fragment(), PostAdapter.OnItemClickListener {
           viewModel.deletePost(post)
         }
         R.id.copy_link -> {
-          SystemUtils.copyText(activity, "https://www.instagram.com/p/${post!!.shortcode}/", R.string.copied_link_to_clipboard)
+          SystemUtils.copyText(
+            activity,
+            "https://www.instagram.com/p/${post!!.shortcode}/",
+            R.string.copied_link_to_clipboard
+          )
         }
         R.id.copy_caption -> {
           if (post!!.hasCaptionText()) {
