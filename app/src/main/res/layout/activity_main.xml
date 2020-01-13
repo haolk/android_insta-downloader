@@ -22,7 +22,7 @@
       app:itemBackground="@color/white"
       app:menu="@menu/bottom_nav_menu" />
 
-    <androidx.viewpager.widget.ViewPager
+    <com.lookie.socialdownloader.utilities.CustomViewPager
       android:id="@+id/viewpager"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
@@ -31,4 +31,5 @@
       app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
   </RelativeLayout>
+
 </layout>
