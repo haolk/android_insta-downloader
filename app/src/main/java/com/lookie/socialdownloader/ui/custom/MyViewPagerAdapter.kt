@@ -1,4 +1,4 @@
-package com.lookie.socialdownloader.utilities
+package com.lookie.socialdownloader.ui.custom
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

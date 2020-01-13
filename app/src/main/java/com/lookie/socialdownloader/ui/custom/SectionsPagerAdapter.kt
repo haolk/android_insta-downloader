@@ -1,9 +1,10 @@
-package com.lookie.socialdownloader.ui.postdetails
+package com.lookie.socialdownloader.ui.custom
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.lookie.socialdownloader.data.room.entity.Post
+import com.lookie.socialdownloader.ui.postdetails.MediaFragment
 import java.util.ArrayList
 
 /**
@@ -18,7 +19,9 @@ class SectionsPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
   }
 
   override fun getItem(position: Int): Fragment {
-    return MediaFragment.newInstance(mList[position])
+    return MediaFragment.newInstance(
+      mList[position]
+    )
   }
 
   override fun getCount(): Int {

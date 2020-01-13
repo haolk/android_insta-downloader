@@ -1,4 +1,4 @@
-package com.lookie.socialdownloader.utilities;
+package com.lookie.socialdownloader.ui.custom;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;

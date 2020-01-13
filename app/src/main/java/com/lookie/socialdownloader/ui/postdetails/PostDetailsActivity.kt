@@ -11,6 +11,7 @@ import com.lookie.socialdownloader.R
 import com.lookie.socialdownloader.data.remote.model.EdgeModel
 import com.lookie.socialdownloader.data.room.entity.Post
 import com.lookie.socialdownloader.databinding.ActivityPostDetailsBinding
+import com.lookie.socialdownloader.ui.custom.SectionsPagerAdapter
 import com.lookie.socialdownloader.ui.download.PostListViewModel
 import com.lookie.socialdownloader.utilities.EXTRA_POST
 import com.lookie.socialdownloader.utilities.InjectorUtils
@@ -36,7 +37,10 @@ class PostDetailsActivity : AppCompatActivity() {
     val binding = DataBindingUtil
       .setContentView<ActivityPostDetailsBinding>(this, R.layout.activity_post_details)
 
-    val pagerAdapter = SectionsPagerAdapter(supportFragmentManager)
+    val pagerAdapter =
+      SectionsPagerAdapter(
+        supportFragmentManager
+      )
 
     if (intent != null && intent.extras != null) {
       mPost = intent.extras!!.getParcelable(EXTRA_POST)

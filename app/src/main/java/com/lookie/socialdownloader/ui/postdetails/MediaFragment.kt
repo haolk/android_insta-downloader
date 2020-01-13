@@ -18,7 +18,7 @@ import com.lookie.socialdownloader.databinding.FragmentMediaBinding
 import com.lookie.socialdownloader.utilities.EXTRA_POST
 import com.lookie.socialdownloader.utilities.FileUtils
 import com.lookie.socialdownloader.utilities.SystemUtils.getFile
-import com.lookie.socialdownloader.utilities.UniversalVideoView
+import com.lookie.socialdownloader.ui.custom.UniversalVideoView
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback

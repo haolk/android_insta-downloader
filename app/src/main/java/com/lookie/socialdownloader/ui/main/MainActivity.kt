@@ -13,7 +13,7 @@ import com.lookie.socialdownloader.base.BaseActivity
 import com.lookie.socialdownloader.databinding.ActivityMainBinding
 import com.lookie.socialdownloader.ui.download.DownloadFragment
 import com.lookie.socialdownloader.ui.home.HomeFragment
-import com.lookie.socialdownloader.utilities.MyViewPagerAdapter
+import com.lookie.socialdownloader.ui.custom.MyViewPagerAdapter
 import com.lookie.socialdownloader.utilities.SystemUtils
 
 class MainActivity : BaseActivity() {
@@ -30,7 +30,9 @@ class MainActivity : BaseActivity() {
     }
 
     // setup ViewPager
-    val adapter = MyViewPagerAdapter(supportFragmentManager)
+    val adapter = MyViewPagerAdapter(
+      supportFragmentManager
+    )
     val homeFragment = HomeFragment()
     val downloadFragment = DownloadFragment()
     adapter.addFragment(homeFragment)

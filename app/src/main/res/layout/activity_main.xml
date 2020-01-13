@@ -22,7 +22,7 @@
       app:itemBackground="@color/white"
       app:menu="@menu/bottom_nav_menu" />
 
-    <com.lookie.socialdownloader.utilities.CustomViewPager
+    <com.lookie.socialdownloader.ui.custom.CustomViewPager
       android:id="@+id/viewpager"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
