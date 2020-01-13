@@ -3,6 +3,7 @@
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <data>
+
     <variable
       name="viewModel"
       type="com.lookie.socialdownloader.ui.download.PostViewModel" />
@@ -61,13 +62,12 @@
 
       </FrameLayout>
 
-      <ImageView
+      <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_avatar"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:imageFromUrl="@{viewModel.owner.profilePicUrl}"
         app:layout_constraintStart_toEndOf="@+id/layout_media"
         app:layout_constraintTop_toTopOf="parent" />
 

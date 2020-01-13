@@ -82,6 +82,8 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
         mLastPost = result
         binViewData(result)
         mBinding!!.hasLatest = true
+      } else {
+        mBinding!!.hasLatest = false
       }
     })
 
@@ -155,8 +157,6 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
       .split("/")[0]
 
     mBinding!!.progress.visibility = View.VISIBLE
-    mBinding!!.hasLatest = false
-    mBinding!!.hasLatest = false
     mBinding!!.btnDownload.isEnabled = false
 
     ApiGenerator.instance!!.createService(ApiMain::class.java)
@@ -184,7 +184,6 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
           } catch (e: Exception) {
             Toast.makeText(context, R.string.post_download_failed, Toast.LENGTH_SHORT).show()
             mBinding!!.progress.visibility = View.GONE
-            mBinding!!.hasLatest = false
             mBinding!!.btnDownload.isEnabled = true
           }
         }
@@ -192,7 +191,6 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
         override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {
           Log.e(TAG, "onFailure")
           mBinding!!.progress.visibility = View.GONE
-          mBinding!!.hasLatest = false
           mBinding!!.btnDownload.isEnabled = true
         }
       })
@@ -248,17 +246,6 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
 
     mCount--
 
-    if (file.exists()) {
-      if (mCount <= 0) {
-        mBinding!!.progress.visibility = View.GONE
-        mBinding!!.hasLatest = false
-      }
-      println("file ${file.absolutePath} exists")
-      return
-    } else {
-      println("downloadFile $mediaUrl")
-    }
-
     ApiGenerator.instance!!.createService(ApiMain::class.java).downloadFile(mediaUrl)!!
       .enqueue(object : Callback<ResponseBody?> {
 
@@ -272,24 +259,20 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
               if (mCount <= 0) {
                 Toast.makeText(context, R.string.post_download_successfully, Toast.LENGTH_SHORT)
                   .show()
-                mBinding!!.hasLatest = true
                 mBinding!!.imgMulti.visibility =
                   if (mPost!!.isMultiMedia()) View.VISIBLE else View.GONE
                 scanFile(context, file)
               }
             } else {
               Toast.makeText(context, R.string.post_download_failed, Toast.LENGTH_SHORT).show()
-              mBinding!!.hasLatest = false
             }
           } else {
             Toast.makeText(context, R.string.post_download_failed, Toast.LENGTH_SHORT).show()
-            mBinding!!.hasLatest = false
           }
         }
 
         override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {
           mBinding!!.progress.visibility = View.GONE
-          mBinding!!.hasLatest = false
         }
       })
   }

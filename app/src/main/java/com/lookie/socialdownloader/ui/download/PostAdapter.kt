@@ -7,6 +7,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.lookie.socialdownloader.R
 import com.lookie.socialdownloader.data.room.entity.Post
 import com.lookie.socialdownloader.databinding.ListItemPostBinding
@@ -43,6 +45,13 @@ class PostAdapter internal constructor(private val listener: OnItemClickListener
         executePendingBindings()
       }
 
+      if (!post.owner.profilePicUrl.isNullOrEmpty()) {
+        Glide.with(binding.imgAvatar.context)
+          .load(post.owner.profilePicUrl)
+          .transition(DrawableTransitionOptions.withCrossFade())
+          .into(binding.imgAvatar)
+      }
+
       binding.cardMedia.setOnClickListener { view ->
         listener.onItemClick(view, post, position)
       }
@@ -50,11 +59,6 @@ class PostAdapter internal constructor(private val listener: OnItemClickListener
       binding.imgMenu.setOnClickListener { view ->
         listener.onItemClick(view, post, position)
       }
-    }
-
-    fun clear() {
-      binding.textUsername.text = "textUsername"
-      binding.textDesc.text = "textDesc"
     }
   }
 
