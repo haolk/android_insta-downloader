@@ -36,6 +36,7 @@ class MainActivity : BaseActivity() {
     adapter.addFragment(homeFragment)
     adapter.addFragment(downloadFragment)
     mBinding!!.viewpager.adapter = adapter
+    mBinding!!.viewpager.setPagingEnabled(false)
 
     // event of BottomNavigationView
     mBinding!!.bottomNavigation.setOnNavigationItemSelectedListener {
