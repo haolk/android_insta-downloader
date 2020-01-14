@@ -9,11 +9,14 @@ With Video Downloader for Instagram and Repost Instagram App, You don’t need t
 
 ### So install this Insta Download for Instagram and Repost app and try now！
 
-How to Use :
-Use ‘Copy Link’
+There are 2 methods to download:
+1. Use ‘Share Link’
+- Step 1: Open Instagram and click on the "Share Link" of the photo or video you are interested in.
+- Step 2: Select Insta Downloader to share => Done! The Instagram photo or video will be downloaded automatically
+
+2. Use ‘Copy Link’
 - Step 1: Open Instagram and click on the "Copy Link" of the Instagram photo or video you are interested in.
-- Step 2: Open Insta Downloader
-Done! The Instagram photo or video will be downloaded automatically
+- Step 2: Open Insta Downloader and click Download button => Done!
 
 ### License
 
