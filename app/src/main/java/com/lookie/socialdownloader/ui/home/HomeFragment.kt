@@ -48,7 +48,17 @@ import java.io.File
 class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
 
   companion object {
+
     private const val TAG = "HomeFragment"
+    private const val LINK = "link"
+
+    fun newInstance(link: String): HomeFragment {
+      val fragment = HomeFragment()
+      val args = Bundle()
+      args.putString(LINK, link)
+      fragment.arguments = args
+      return fragment
+    }
   }
 
   private var mLastPost: Post? = null
@@ -98,22 +108,9 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
     }
 
     mBinding!!.btnDownload.setOnClickListener {
-      val link = edt_link.text.toString()
+      val link = mBinding!!.edtLink.text.toString()
       if (!TextUtils.isEmpty(link)) {
-        if (isInstaLink(link)) {
-          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val main = (activity as MainActivity)
-            if (main.isReadStoragePermissionGranted && main.isWriteStoragePermissionGranted) {
-              downloadMediaData(link)
-            } else {
-              Toast.makeText(activity, "Permission is revoked", Toast.LENGTH_SHORT).show()
-            }
-          } else {
-            downloadMediaData(link)
-          }
-        } else {
-          Toast.makeText(activity, R.string.this_is_not_an_insta_link, Toast.LENGTH_SHORT).show()
-        }
+        download(link)
       } else {
         Toast.makeText(activity, R.string.insta_link_not_found, Toast.LENGTH_SHORT).show()
       }
@@ -138,7 +135,30 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
       adapter.submitList(users)
     })
 
+    val link = arguments!!.getString(LINK, "")
+    if (!TextUtils.isEmpty(link)) {
+      mBinding!!.edtLink.setText(link)
+      download(link)
+    }
+
     return mBinding!!.root
+  }
+
+  private fun download(link: String) {
+    if (isInstaLink(link)) {
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        val main = (activity as MainActivity)
+        if (main.isReadStoragePermissionGranted && main.isWriteStoragePermissionGranted) {
+          downloadMediaData(link)
+        } else {
+          Toast.makeText(activity, "Permission is revoked", Toast.LENGTH_SHORT).show()
+        }
+      } else {
+        downloadMediaData(link)
+      }
+    } else {
+      Toast.makeText(activity, R.string.this_is_not_an_insta_link, Toast.LENGTH_SHORT).show()
+    }
   }
 
   private fun isInstaLink(link: String): Boolean {
@@ -324,5 +344,10 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
 
   override fun onItemClick(view: View?, user: User?, position: Int) {
     SystemUtils.openProfileInstagram(activity, user!!.username)
+  }
+
+  fun setLink(link: String) {
+    mBinding!!.edtLink.setText(link)
+    mBinding!!.btnDownload.performClick()
   }
 }

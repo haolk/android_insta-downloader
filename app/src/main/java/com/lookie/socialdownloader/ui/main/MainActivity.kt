@@ -1,12 +1,16 @@
 package com.lookie.socialdownloader.ui.main
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.PermissionChecker
+import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import com.lookie.socialdownloader.R
 import com.lookie.socialdownloader.base.BaseActivity
@@ -19,24 +23,39 @@ import com.lookie.socialdownloader.utilities.SystemUtils
 class MainActivity : BaseActivity() {
 
   private var mBinding: ActivityMainBinding? = null
+  private var adapter: MyViewPagerAdapter? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+    Log.w(TAG, "onCreate")
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
       isReadStoragePermissionGranted
       isWriteStoragePermissionGranted
     }
 
+    var link = ""
+    if (intent != null && intent.extras != null) {
+      val bundle = intent.extras
+      for (key in bundle!!.keySet()) {
+        val value = bundle[key]
+        Log.w(TAG, key + ": " + value.toString())
+      }
+
+      // get link from insta app
+      link = intent.extras!!.getString("android.intent.extra.TEXT", "")
+    }
+
+    Log.w(TAG, "link $link")
+
     // setup ViewPager
-    val adapter = MyViewPagerAdapter(
-      supportFragmentManager
-    )
-    val homeFragment = HomeFragment()
+    adapter = MyViewPagerAdapter(supportFragmentManager)
+    val homeFragment = HomeFragment.newInstance(link)
     val downloadFragment = DownloadFragment()
-    adapter.addFragment(homeFragment)
-    adapter.addFragment(downloadFragment)
+    adapter!!.addFragment(homeFragment)
+    adapter!!.addFragment(downloadFragment)
     mBinding!!.viewpager.adapter = adapter
     mBinding!!.viewpager.setPagingEnabled(false)
 
@@ -52,6 +71,32 @@ class MainActivity : BaseActivity() {
         }
       }
       false
+    }
+  }
+
+  @SuppressLint("ResourceType")
+  override fun onNewIntent(intent: Intent?) {
+    super.onNewIntent(intent)
+    Log.w(TAG, "onNewIntent")
+    var link = ""
+    if (intent != null && intent.extras != null) {
+      val bundle = intent.extras
+      for (key in bundle!!.keySet()) {
+        val value = bundle[key]
+        Log.w(TAG, key + ": " + value.toString())
+      }
+
+      // get link from insta app
+      link = intent.extras!!.getString("android.intent.extra.TEXT", "")
+    }
+
+    Log.w(TAG, "link $link")
+
+    if (!TextUtils.isEmpty(link)) {
+      val frag = adapter!!.mFragmentList[0]
+      if (frag is HomeFragment) {
+        frag.setLink(link)
+      }
     }
   }
 
