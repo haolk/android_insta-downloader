@@ -38,7 +38,6 @@ import com.lookie.socialdownloader.utilities.FileUtils.scanFile
 import com.lookie.socialdownloader.utilities.FileUtils.writeResponseBodyToDisk
 import com.lookie.socialdownloader.utilities.InjectorUtils
 import com.lookie.socialdownloader.utilities.SystemUtils
-import kotlinx.android.synthetic.main.fragment_home.*
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback

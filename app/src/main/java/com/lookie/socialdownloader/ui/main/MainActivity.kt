@@ -10,7 +10,6 @@ import android.text.TextUtils
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.PermissionChecker
-import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import com.lookie.socialdownloader.R
 import com.lookie.socialdownloader.base.BaseActivity
@@ -38,12 +37,11 @@ class MainActivity : BaseActivity() {
 
     var link = ""
     if (intent != null && intent.extras != null) {
-      val bundle = intent.extras
-      for (key in bundle!!.keySet()) {
-        val value = bundle[key]
-        Log.w(TAG, key + ": " + value.toString())
-      }
-
+//      val bundle = intent.extras
+//      for (key in bundle!!.keySet()) {
+//        val value = bundle[key]
+//        Log.w(TAG, key + ": " + value.toString())
+//      }
       // get link from insta app
       link = intent.extras!!.getString("android.intent.extra.TEXT", "")
     }
@@ -78,18 +76,11 @@ class MainActivity : BaseActivity() {
   override fun onNewIntent(intent: Intent?) {
     super.onNewIntent(intent)
     Log.w(TAG, "onNewIntent")
+
     var link = ""
     if (intent != null && intent.extras != null) {
-      val bundle = intent.extras
-      for (key in bundle!!.keySet()) {
-        val value = bundle[key]
-        Log.w(TAG, key + ": " + value.toString())
-      }
-
-      // get link from insta app
       link = intent.extras!!.getString("android.intent.extra.TEXT", "")
     }
-
     Log.w(TAG, "link $link")
 
     if (!TextUtils.isEmpty(link)) {
