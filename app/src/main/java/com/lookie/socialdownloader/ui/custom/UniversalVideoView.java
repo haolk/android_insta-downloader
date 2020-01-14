@@ -264,7 +264,6 @@ public class UniversalVideoView extends SurfaceView
     invalidate();
   }
 
-
   public void stopPlayback() {
     if (mMediaPlayer != null) {
       mMediaPlayer.stop();

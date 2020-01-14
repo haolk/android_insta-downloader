@@ -2,8 +2,6 @@
   <string name="app_name">Insta Downloader</string>
   <string name="title_home">Home</string>
   <string name="title_download">Download</string>
-  <string name="downloading">Downloading…</string>
-  <string name="cancel">Cancel</string>
   <string name="paste_link">Paste Link</string>
   <string name="download">Download</string>
   <string name="paste_an_insta_link">Paste an Instagram URL here</string>

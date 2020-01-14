@@ -1,7 +1,4 @@
 <resources>
-  <dimen name="edt_height">40dp</dimen>
-  <dimen name="edt_height2">48dp</dimen>
-  <dimen name="title">15sp</dimen>
   <dimen name="text_size_small">12sp</dimen>
   <dimen name="text_size_normal">13sp</dimen>
   <dimen name="text_size_medium">15sp</dimen>
@@ -9,5 +6,4 @@
   <dimen name="text_size_large">18sp</dimen>
   <dimen name="button_height">40dp</dimen>
   <dimen name="button_radius">3dp</dimen>
-  <dimen name="line">0.4dp</dimen>
 </resources>

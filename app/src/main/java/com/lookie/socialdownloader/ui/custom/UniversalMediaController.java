@@ -398,7 +398,7 @@ public class UniversalMediaController extends FrameLayout {
   }
 
   boolean handled = false;
-  //如果正在显示,则使之消失
+
   private OnTouchListener mTouchListener = new OnTouchListener() {
     public boolean onTouch(View v, MotionEvent event) {
       if (event.getAction() == MotionEvent.ACTION_DOWN) {
