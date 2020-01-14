@@ -6,7 +6,7 @@
 
     <variable
       name="viewModel"
-      type="com.lookie.socialdownloader.ui.download.PostViewModel" />
+      type="com.lookie.instadownloader.ui.download.PostViewModel" />
   </data>
 
   <androidx.cardview.widget.CardView

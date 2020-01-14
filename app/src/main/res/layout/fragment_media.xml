@@ -25,14 +25,14 @@
       android:background="@android:color/black"
       android:visibility="gone">
 
-      <com.lookie.socialdownloader.ui.custom.UniversalVideoView
+      <com.lookie.instadownloader.ui.custom.UniversalVideoView
         android:id="@+id/video_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         app:uvv_fitXY="false" />
 
-      <com.lookie.socialdownloader.ui.custom.UniversalMediaController
+      <com.lookie.instadownloader.ui.custom.UniversalMediaController
         android:id="@+id/media_controller"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

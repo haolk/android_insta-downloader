@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "575052108524",
+    "firebase_url": "https://insta-downloader-ae5d9.firebaseio.com",
+    "project_id": "insta-downloader-ae5d9",
+    "storage_bucket": "insta-downloader-ae5d9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:575052108524:android:da72dd094c602485838bc9",
+        "android_client_info": {
+          "package_name": "com.lookie.instadownloader"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "575052108524-pi526avj4sm7co8movd19c8bftnhptge.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lookie.instadownloader",
+            "certificate_hash": "58e0b05c399c66f1df78c355a762df482dcc4b11"
+          }
+        },
+        {
+          "client_id": "575052108524-7bk81u2mlmdgckhmec6215tbqb0h6fv4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3zISHp6OiomrRO9wUBuXlxGO9vvnXO_U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "575052108524-7bk81u2mlmdgckhmec6215tbqb0h6fv4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

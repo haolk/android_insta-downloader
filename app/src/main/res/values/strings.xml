@@ -30,4 +30,30 @@
   <string name="cannot_repost">Can\'t repost media.</string>
   <string name="back">Back</string>
   <string name="loading">Loading…</string>
+
+  <string name="facebook_app_id">643404319531246</string>
+  <string name="fb_login_protocol_scheme">fb643404319531246</string>
+
+  <!-- AdMob Live IDs -->
+  <!--  <string name="admob_app_id">ca-app-pub-4399159479903837~5762868851</string>-->
+  <!--  <string name="banner_home_footer">ca-app-pub-7814549536543810/3123607855</string>-->
+  <!--  <string name="interstitial_full_screen">ca-app-pub-7814549536543810/9305872827</string>-->
+  <!--  <string name="rewarded_video">ca-app-pub-7814549536543810/8297487416</string>-->
+
+  <!-- Facebook Live id -->
+  <!--  <string name="facebook_app_id">ca-app-pub-7814549536543810~2265774028</string>-->
+  <!--  <string name="facebook_banner">720819818334614_720821941667735</string>-->
+  <!--  <string name="facebook_rectangle">720819818334614_727176271032302</string>-->
+  <!--  <string name="facebook_interstitial">720819818334614_720828088333787</string>-->
+
+  <!--Facebook Test Ads id &ndash;&gt;-->
+  <string name="facebook_banner">YOUR_PLACEMENT_ID</string>
+  <string name="facebook_rectangle">YOUR_PLACEMENT_ID</string>
+  <string name="facebook_interstitial">YOUR_PLACEMENT_ID</string>
+
+  <!-- AdMob Test Ads id -->
+  <string name="banner_home_footer" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+  <string name="interstitial_full_screen" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+  <string name="rewarded_video" translatable="false">ca-app-pub-3940256099942544/5224354917</string>
+  <string name="admob_app_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
 </resources>
