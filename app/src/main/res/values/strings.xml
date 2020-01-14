@@ -36,9 +36,9 @@
 
   <!-- AdMob Live IDs -->
   <!--  <string name="admob_app_id">ca-app-pub-4399159479903837~5762868851</string>-->
-  <!--  <string name="banner_home_footer">ca-app-pub-7814549536543810/3123607855</string>-->
-  <!--  <string name="interstitial_full_screen">ca-app-pub-7814549536543810/9305872827</string>-->
-  <!--  <string name="rewarded_video">ca-app-pub-7814549536543810/8297487416</string>-->
+  <!--  <string name="banner_home_footer">ca-app-pub-4399159479903837/7470169366</string>-->
+  <!--  <string name="interstitial_full_screen">ca-app-pub-4399159479903837/6619928600</string>-->
+  <!--  <string name="rewarded_video">ca-app-pub-4399159479903837/4718569868</string>-->
 
   <!-- Facebook Live id -->
   <!--  <string name="facebook_app_id">ca-app-pub-7814549536543810~2265774028</string>-->
@@ -56,4 +56,27 @@
   <string name="interstitial_full_screen" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
   <string name="rewarded_video" translatable="false">ca-app-pub-3940256099942544/5224354917</string>
   <string name="admob_app_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
+  <string name="please_click_back_again">Please click BACK again to exit</string>
+  <string name="open_insta">Open Instagram</string>
+  <string name="settings">Settings</string>
+  <string name="share_app">Share App</string>
+  <string name="family_app">Family App</string>
+  <string name="remove_ads">Remove Ads</string>
+  <string name="clear_all">Clear All</string>
+  <string name="title_activity_settings">Settings</string>
+
+  <!-- Preference Titles -->
+  <string name="messages_header">Messages</string>
+  <string name="sync_header">Sync</string>
+
+  <!-- Messages Preferences -->
+  <string name="signature_title">Your signature</string>
+  <string name="reply_title">Default reply action</string>
+
+  <!-- Sync Preferences -->
+  <string name="sync_title">Sync email periodically</string>
+  <string name="attachment_title">Download incoming attachments</string>
+  <string name="attachment_summary_on">Automatically download attachments for incoming emails
+  </string>
+  <string name="attachment_summary_off">Only download attachments when manually requested</string>
 </resources>

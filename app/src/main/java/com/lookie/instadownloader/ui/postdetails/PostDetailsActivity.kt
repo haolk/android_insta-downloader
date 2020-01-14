@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.viewpager.widget.ViewPager
 import com.lookie.instadownloader.R
+import com.lookie.instadownloader.base.BaseActivity
 import com.lookie.instadownloader.data.remote.model.EdgeModel
 import com.lookie.instadownloader.data.room.entity.Post
 import com.lookie.instadownloader.databinding.ActivityPostDetailsBinding
@@ -18,7 +19,7 @@ import com.lookie.instadownloader.utilities.InjectorUtils
 import com.lookie.instadownloader.utilities.SystemUtils
 import com.lookie.instadownloader.utilities.SystemUtils.setStatusBarColor
 
-class PostDetailsActivity : AppCompatActivity() {
+class PostDetailsActivity : BaseActivity() {
 
   private var mPost: Post? = null
 

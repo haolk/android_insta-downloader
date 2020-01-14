@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:ads="http://schemas.android.com/apk/res-auto"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools">
 
@@ -71,7 +72,7 @@
         android:id="@+id/label_latest_download"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
+        android:layout_marginTop="16dp"
         android:paddingBottom="4dp"
         android:text="@string/latest_download"
         android:textColor="@color/black"
@@ -79,7 +80,7 @@
         app:isGone="@{!hasLatest}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_download" />
+        app:layout_constraintTop_toBottomOf="@+id/adView" />
 
       <androidx.cardview.widget.CardView
         android:id="@+id/card_media"
@@ -194,11 +195,22 @@
 
       </androidx.cardview.widget.CardView>
 
+      <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_home_footer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_download" />
+
       <TextView
         android:id="@+id/label_recently_visited"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
+        android:paddingTop="16dp"
         android:paddingBottom="4dp"
         android:text="@string/recently_visited"
         android:textColor="@color/black"

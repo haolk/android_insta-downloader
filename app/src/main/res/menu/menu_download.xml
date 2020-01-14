@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  tools:context=".ui.main.MainActivity">
+
+<!--  <item-->
+<!--    android:id="@+id/action_open_insta"-->
+<!--    android:icon="@drawable/ic_instagram"-->
+<!--    android:orderInCategory="100"-->
+<!--    android:title="@string/open_insta"-->
+<!--    app:showAsAction="always" />-->
+
+  <item
+    android:id="@+id/action_clear_all"
+    android:icon="@drawable/ic_clear_all_white"
+    android:orderInCategory="100"
+    android:title="@string/clear_all"
+    app:showAsAction="never" />
+
+</menu>

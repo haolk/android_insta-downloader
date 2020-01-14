@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  tools:context=".ui.main.MainActivity">
+
+  <item
+    android:id="@+id/action_open_insta"
+    android:icon="@drawable/ic_instagram"
+    android:orderInCategory="100"
+    android:title="@string/open_insta"
+    app:showAsAction="always" />
+
+  <item
+    android:id="@+id/action_share_app"
+    android:icon="@drawable/ic_share_white"
+    android:orderInCategory="100"
+    android:title="@string/share_app"
+    app:showAsAction="never" />
+
+  <item
+    android:id="@+id/action_family_app"
+    android:icon="@drawable/ic_apps_white"
+    android:orderInCategory="100"
+    android:title="@string/family_app"
+    app:showAsAction="never" />
+
+  <item
+    android:id="@+id/action_settings"
+    android:icon="@drawable/ic_settings_white"
+    android:orderInCategory="100"
+    android:title="@string/settings"
+    app:showAsAction="never" />
+
+</menu>

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.google.android.gms.ads.AdRequest
 import com.lookie.instadownloader.R
 import com.lookie.instadownloader.data.room.entity.Post
 import com.lookie.instadownloader.databinding.ListItemPostBinding

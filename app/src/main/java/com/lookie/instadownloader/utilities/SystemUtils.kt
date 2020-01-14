@@ -17,6 +17,24 @@ import java.io.File
 
 object SystemUtils {
 
+  fun openMoreApps(activity: Activity?) {
+    try {
+      activity!!.startActivity(
+        Intent(
+          Intent.ACTION_VIEW,
+          Uri.parse("market://search?q=pub:Lookie")
+        )
+      )
+    } catch (e: ActivityNotFoundException) {
+      activity!!.startActivity(
+        Intent(
+          Intent.ACTION_VIEW,
+          Uri.parse("http://play.google.com/store/apps/developer?id=Lookie")
+        )
+      )
+    }
+  }
+
   @JvmStatic
   fun setStatusBarColor(activity: Activity?, statusBarColor: Int) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && activity != null) {
@@ -64,6 +82,17 @@ object SystemUtils {
     }
   }
 
+  fun openInstagram(context: Context?) {
+    val packageName = "com.instagram.android"
+    var intent = context!!.packageManager.getLaunchIntentForPackage(packageName)
+    if (intent == null) {
+      intent = Intent(Intent.ACTION_VIEW)
+      intent.data = Uri.parse("market://details?id=$packageName")
+    }
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    context.startActivity(intent)
+  }
+
   fun openProfileInstagram(activity: Activity?, username: String) {
     if (verifyInstagram(activity!!)) {
       val uri: Uri = Uri.parse("https://www.instagram.com/${username}/")
@@ -87,7 +116,6 @@ object SystemUtils {
     if (!storageDir.exists()) {
       storageDir.mkdirs()
     }
-
     val prefix = if (post!!.isVideo) ".mp4" else ".jpg"
     val shortCode =
       if (post.isMultiMedia()) post.children.edges!![0].note!!.shortcode else post.shortcode
@@ -149,6 +177,10 @@ object SystemUtils {
     activity!!.startActivity(Intent.createChooser(sendIntent, activity.getString(R.string.share)))
   }
 
+  fun openInsta() {
+
+  }
+
   private fun verifyInstagram(activity: Activity): Boolean {
     return try {
       activity.packageManager.getApplicationInfo("com.instagram.android", 0)
@@ -181,6 +213,32 @@ object SystemUtils {
     } catch (e: Exception) {
       Toast.makeText(activity, R.string.cannot_repost, Toast.LENGTH_SHORT).show()
       e.printStackTrace()
+    }
+  }
+
+  fun openPlayStore(context: Context?) {
+    if (context != null) {
+      val intent = Intent(Intent.ACTION_VIEW)
+      intent.data = Uri.parse(
+        "https://play.google.com/store/apps/details?id=" + context.packageName
+      )
+      intent.setPackage("com.android.vending")
+      context.startActivity(intent)
+    }
+  }
+
+  fun shareApp(context: Context?) {
+    if (context != null) {
+      val sendIntent = Intent()
+      sendIntent.action = Intent.ACTION_SEND
+      sendIntent.putExtra(
+        Intent.EXTRA_TEXT,
+        "https://play.google.com/store/apps/details?id=" + context.packageName
+      )
+      sendIntent.type = "text/plain"
+      context.startActivity(
+        Intent.createChooser(sendIntent, context.resources.getText(R.string.share))
+      )
     }
   }
 }

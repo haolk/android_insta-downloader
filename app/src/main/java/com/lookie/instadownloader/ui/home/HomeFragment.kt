@@ -8,10 +8,7 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.text.TextUtils
 import android.util.Log
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.view.menu.MenuPopupHelper
@@ -21,22 +18,29 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
+import com.google.android.gms.ads.*
 import com.google.gson.Gson
 import com.lookie.instadownloader.R
-import com.lookie.instadownloader.data.remote.model.*
+import com.lookie.instadownloader.base.BaseActivity
+import com.lookie.instadownloader.data.remote.model.EdgeModel
+import com.lookie.instadownloader.data.remote.model.InstaModel
+import com.lookie.instadownloader.data.remote.model.ShortMediaModel
 import com.lookie.instadownloader.data.rest.ApiGenerator
 import com.lookie.instadownloader.data.rest.ApiMain
 import com.lookie.instadownloader.data.room.entity.Post
 import com.lookie.instadownloader.data.room.entity.User
 import com.lookie.instadownloader.databinding.FragmentHomeBinding
+import com.lookie.instadownloader.ui.custom.InterstitialAdCallback
 import com.lookie.instadownloader.ui.download.PostListViewModel
 import com.lookie.instadownloader.ui.main.MainActivity
 import com.lookie.instadownloader.ui.postdetails.PostDetailsActivity
+import com.lookie.instadownloader.ui.settings.SettingsActivity
 import com.lookie.instadownloader.utilities.EXTRA_POST
 import com.lookie.instadownloader.utilities.FileUtils.createImageFile
 import com.lookie.instadownloader.utilities.FileUtils.scanFile
 import com.lookie.instadownloader.utilities.FileUtils.writeResponseBodyToDisk
 import com.lookie.instadownloader.utilities.InjectorUtils
+import com.lookie.instadownloader.utilities.SharedPrefUtils
 import com.lookie.instadownloader.utilities.SystemUtils
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -86,6 +90,15 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
 
     mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
 
+    setHasOptionsMenu(true)
+
+    if (SharedPrefUtils.instance!!.premium!!) {
+      mBinding!!.adView.visibility = View.GONE
+    } else {
+      mBinding!!.adView.visibility = View.VISIBLE
+      mBinding!!.adView.loadAd(AdRequest.Builder().build())
+    }
+
     viewModelPost.lastPost.observe(viewLifecycleOwner, Observer<Post> { result ->
       if (result != null) {
         mLastPost = result
@@ -109,7 +122,11 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
     mBinding!!.btnDownload.setOnClickListener {
       val link = mBinding!!.edtLink.text.toString()
       if (!TextUtils.isEmpty(link)) {
-        download(link)
+        (activity as MainActivity).showInterstitialAds(object : InterstitialAdCallback {
+          override fun onAdClosed() {
+            download(link)
+          }
+        })
       } else {
         Toast.makeText(activity, R.string.insta_link_not_found, Toast.LENGTH_SHORT).show()
       }
@@ -135,12 +152,54 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
     })
 
     val link = arguments!!.getString(LINK, "")
+
     if (!TextUtils.isEmpty(link)) {
       mBinding!!.edtLink.setText(link)
-      download(link)
+      (activity as MainActivity).showInterstitialAds(object : InterstitialAdCallback {
+        override fun onAdClosed() {
+          download(link)
+        }
+      })
     }
 
     return mBinding!!.root
+  }
+
+  override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    if (SharedPrefUtils.instance!!.premium!!) {
+      inflater.inflate(R.menu.menu_home_premium, menu)
+    } else {
+      inflater.inflate(R.menu.menu_home, menu)
+    }
+    super.onCreateOptionsMenu(menu, inflater)
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    return (when (item.itemId) {
+      R.id.action_remove_ads -> {
+        (activity as MainActivity).doUpgrade()
+        true
+      }
+      R.id.action_open_insta -> {
+        SystemUtils.openInstagram(context)
+        true
+      }
+      R.id.action_share_app -> {
+        SystemUtils.shareApp(context)
+        true
+      }
+      R.id.action_family_app -> {
+        SystemUtils.openMoreApps(activity)
+        true
+      }
+      R.id.action_settings -> {
+        val intent = Intent(activity, SettingsActivity::class.java)
+        startActivity(intent)
+        true
+      }
+      else ->
+        super.onOptionsItemSelected(item)
+    })
   }
 
   private fun download(link: String) {
@@ -302,34 +361,58 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
     popup.setOnMenuItemClickListener { item ->
       when (item.itemId) {
         R.id.view_on_insta -> {
-          SystemUtils.openInstagram(activity, post!!.shortcode)
+          (activity as MainActivity).showInterstitialAds(object : InterstitialAdCallback {
+            override fun onAdClosed() {
+              SystemUtils.openInstagram(activity, post!!.shortcode)
+            }
+          })
         }
         R.id.repost_for_insta -> {
-          SystemUtils.repostInsta(activity, post)
+          (activity as MainActivity).showInterstitialAds(object : InterstitialAdCallback {
+            override fun onAdClosed() {
+              SystemUtils.repostInsta(activity, post)
+            }
+          })
         }
         R.id.share_media -> {
-          SystemUtils.shareLocalMedia(activity, post)
+          (activity as MainActivity).showInterstitialAds(object : InterstitialAdCallback {
+            override fun onAdClosed() {
+              SystemUtils.shareLocalMedia(activity, post)
+            }
+          })
         }
         R.id.share_link -> {
-          SystemUtils.shareLink(activity, post)
+          (activity as MainActivity).showInterstitialAds(object : InterstitialAdCallback {
+            override fun onAdClosed() {
+              SystemUtils.shareLink(activity, post)
+            }
+          })
         }
         R.id.delete -> {
           viewModelPost.deletePost(post)
         }
         R.id.copy_link -> {
-          SystemUtils.copyText(
-            activity,
-            "https://www.instagram.com/p/${post!!.shortcode}/",
-            R.string.copied_link_to_clipboard
-          )
+          (activity as MainActivity).showInterstitialAds(object : InterstitialAdCallback {
+            override fun onAdClosed() {
+              SystemUtils.copyText(
+                activity,
+                "https://www.instagram.com/p/${post!!.shortcode}/",
+                R.string.copied_link_to_clipboard
+              )
+            }
+          })
         }
         R.id.copy_caption -> {
-          if (post!!.hasCaptionText()) {
-            val caption = post.getCaptionText()
-            SystemUtils.copyText(activity, caption, R.string.copied_caption_to_clipboard)
-          } else {
-            Toast.makeText(activity, R.string.caption_not_found, Toast.LENGTH_SHORT).show()
-          }
+          (activity as MainActivity).showInterstitialAds(object : InterstitialAdCallback {
+            override fun onAdClosed() {
+              if (post!!.hasCaptionText()) {
+                val caption = post.getCaptionText()
+                SystemUtils.copyText(activity, caption, R.string.copied_caption_to_clipboard)
+              } else {
+                Toast.makeText(activity, R.string.caption_not_found, Toast.LENGTH_SHORT).show()
+              }
+            }
+          })
         }
       }
       true
@@ -347,6 +430,14 @@ class HomeFragment : Fragment(), UserAdapter.OnItemClickListener {
 
   fun setLink(link: String) {
     mBinding!!.edtLink.setText(link)
-    mBinding!!.btnDownload.performClick()
+    if (!TextUtils.isEmpty(link)) {
+      (activity as MainActivity).showInterstitialAds(object : InterstitialAdCallback {
+        override fun onAdClosed() {
+          download(link)
+        }
+      })
+    } else {
+      Toast.makeText(activity, R.string.insta_link_not_found, Toast.LENGTH_SHORT).show()
+    }
   }
 }
